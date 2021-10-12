@@ -5,12 +5,13 @@ import UIKit
 let stringToChange = "Subscripting a dictionary with a key returns an optional value, because a dictionary might not hold a value for the key that you use in the subscript"
 func createDictionary(from inoutString: String) -> Dictionary<String, Int> {
     let words = inoutString.lowercased().components(separatedBy:
-                                                            .whitespacesAndNewlines).filter{ !$0.isEmpty }
-    let setOfWords = Set(words).filter{ !$0.hasSuffix(",") }
-    
-    
-    
-    
-   
+                                                            .whitespacesAndNewlines)
+    let setOfWords = Array(Set(words).filter{ !$0.hasSuffix(",") })
+    var newDictionary = [String : Int]()
+    for item in setOfWords {
+        let values = words.filter { $0 == item }.count
+        newDictionary.updateValue(values, forKey: item)
+    }
+    return newDictionary
 }
 print(createDictionary(from: stringToChange))
