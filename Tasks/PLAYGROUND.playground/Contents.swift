@@ -10,11 +10,9 @@ func createDictionary(from inoutString: String) -> [String: Int] {
                 .lowercased()
                 .components(separatedBy: .whitespacesAndNewlines)
                 .filter{!$0.isEmpty}
-    let setOfWords = Array(Set(words))
     var newDictionary = [String : Int]()
-    for item in setOfWords {
-        let values = words.filter{$0 == item}.count
-        newDictionary.updateValue(values, forKey: item)
+    for item in words {
+        newDictionary[item] = (newDictionary[item] ?? 0) + 1
     }
     return newDictionary
 }
