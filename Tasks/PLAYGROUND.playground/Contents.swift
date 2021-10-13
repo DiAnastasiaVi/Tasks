@@ -5,8 +5,8 @@ let firstArray = [1, 2, 3, 7, 8, 9, 11, 12, 13, 18, 19, 20]
 let secondArray = [3, 4, 5, 6, 7, 8, 10, 11, 13, 20, 1]
 func makeOneArray(from arrayToCheck1: [Int], and arrayToCheck2: [Int]) -> [Int] {
     var arrayFromTwoArrays: [Int] = []
-    (arrayToCheck1 + arrayToCheck2).map { sameNumber in
-        if arrayToCheck1.contains(sameNumber) && arrayToCheck2.contains(sameNumber) {
+    for sameNumber in arrayToCheck1 {
+        if arrayToCheck2.contains(sameNumber) {
             arrayFromTwoArrays.append(sameNumber)
         }
     }
