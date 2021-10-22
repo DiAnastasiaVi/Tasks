@@ -5,15 +5,18 @@ import UIKit
 
 let myNumbers1 = [88, 92, 44, 4, 23, 9, 17, 3]
 func toFindSumOfTwoMin(in inoutArray: [Int]) -> Int {
-    let arrayMin1 = inoutArray.min()
-    var arrayMin2 : Int
+    var inoutArrayMin1 = min(inoutArray[0], inoutArray[1])
+    var inoutArrayMin2 = max(inoutArray[0], inoutArray[1])
     for i in inoutArray {
-        if (inoutArray[i] > arrayMin1 ?? 0) && i != inoutArray.firstIndex(of: arrayMin1 ?? 0) {
-            arrayMin2 = i
-            print (arrayMin1, arrayMin2)
+        if inoutArrayMin1 > i {
+            inoutArrayMin2 = inoutArrayMin1
+            inoutArrayMin1 = i
+        }
+        else {
+            inoutArrayMin2 = min(i, inoutArrayMin2)
         }
     }
-    return (arrayMin1 ?? 0)
+    return inoutArrayMin1 + inoutArrayMin2
 }
 print (toFindSumOfTwoMin(in: myNumbers1))
 //
