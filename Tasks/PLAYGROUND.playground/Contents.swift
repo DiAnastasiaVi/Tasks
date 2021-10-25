@@ -13,21 +13,13 @@ func removeNumbersCountingN(in unsortedArray: [Int], statement: ComparingWithN, 
     for i in unsortedArray {
         dictionaryOfNum[i] = (dictionaryOfNum[i] ?? 0) + 1
     }
-    for (number, repeating) in dictionaryOfNum {
-        switch statement {
-        case .theNumberIsRepeatedNTimes:
-            if repeating == N {
-                sortedByStatement.removeAll(where: {$0 == number})
-            }
-        case .theNumberIsRepeatedMoreThanNTimes:
-            if repeating >= N {
-                sortedByStatement.removeAll(where: {$0 == number})
-            }
-        case .theNumberIsRepeatedLessThanNTimes:
-            if repeating <= N {
-                sortedByStatement.removeAll(where: {$0 == number})
-            }
-        }
+    switch statement {
+    case .theNumberIsRepeatedNTimes:
+        sortedByStatement.removeAll(where: {dictionaryOfNum[$0] == N})
+    case .theNumberIsRepeatedMoreThanNTimes:
+        sortedByStatement.removeAll(where: {(dictionaryOfNum[$0] ?? 0) >= N})
+    case .theNumberIsRepeatedLessThanNTimes:
+        sortedByStatement.removeAll(where: {(dictionaryOfNum[$0] ?? 0) <= N})
     }
     return sortedByStatement
 }
