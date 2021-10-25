@@ -3,20 +3,15 @@ import UIKit
 let parenthesisToCheck = "Створити перерахування для дужок"
 let parenthesisToCheck1 = "( [ { } ] )"
 let parenthesisToCheck2 = "Уточнення: рахувати саме вкладеність дужок, тобто ) ( i ( { ) } мають повертати false"
-func checkSpelling(of inoutString: String) -> Bool {
+func checkSpelling(of arithmeticExpression: String) -> Bool {
     let parenthesisPairs : [Character : Character] = ["(" : ")", "[" : "]", "{" : "}"]
     var charArray : [Character] = []
-    for i in inoutString {
+    for i in arithmeticExpression {
         if let pair = parenthesisPairs[i] {
             charArray.append(pair)
         }
         else if charArray.last == i {
             charArray.popLast()
-        }
-    }
-    for (leftParenthesis, _) in parenthesisPairs {
-        if !inoutString.contains(leftParenthesis) {
-            return false
         }
     }
     return charArray.isEmpty
