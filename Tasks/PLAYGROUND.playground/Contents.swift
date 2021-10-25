@@ -6,54 +6,31 @@ enum ComparingWithN {
     case theNumberIsRepeatedMoreThanNTimes
     case theNumberIsRepeatedLessThanNTimes
 }
-let firstArray = [1, 1, 4, 4, 4, 6, 7, 8, 8, 5, 5, 3, 1, 1]
-func function(inoutArray: [Int], statement: ComparingWithN, N: Int) -> [Int] {
-    var sortedByStatement = inoutArray
+let arrayToSort = [1, 1, 4, 4, 4, 6, 7, 8, 8, 5, 5, 3, 1, 1]
+func removeNumbersCountingN(in unsortedArray: [Int], statement: ComparingWithN, N: Int) -> [Int] {
+    var sortedByStatement = unsortedArray
     var dictionaryOfNum : [Int : Int] = [:]
-    for i in inoutArray {
+    for i in unsortedArray {
         dictionaryOfNum[i] = (dictionaryOfNum[i] ?? 0) + 1
     }
-    for (a, b) in dictionaryOfNum {
+    for (number, repeating) in dictionaryOfNum {
         switch statement {
         case .theNumberIsRepeatedNTimes:
-            if b == N {
-                dictionaryOfNum.removeValue(forKey: a)
+            if repeating == N {
+                sortedByStatement.removeAll(where: {$0 == number})
             }
         case .theNumberIsRepeatedMoreThanNTimes:
-            if b > N {
-                dictionaryOfNum.removeValue(forKey: a)
+            if repeating >= N {
+                sortedByStatement.removeAll(where: {$0 == number})
             }
         case .theNumberIsRepeatedLessThanNTimes:
-            if b < N {
-                dictionaryOfNum.removeValue(forKey: a)
+            if repeating <= N {
+                sortedByStatement.removeAll(where: {$0 == number})
             }
         }
     }
-    print(dictionaryOfNum)
     return sortedByStatement
 }
-print (function(inoutArray: firstArray, statement: .theNumberIsRepeatedNTimes, N: 3))
-
-//var sortedByStatement : [Int] = []
-//var dictionaryOfNum : [Int : Int] = [ : ]
-//for i in inoutArray {
-//    dictionaryOfNum[i] = (dictionaryOfNum[i] ?? 0) + 1
-//}
-//for (number, repeating) in dictionaryOfNum {
-//    switch statement {
-//    case .theNumberIsRepeatedNTimes:
-//        if repeating == N {
-//            dictionaryOfNum.removeValue(forKey: number)
-//        }
-//    case .theNumberIsRepeatedMoreThanNTimes:
-//        if repeating > N {
-//            dictionaryOfNum.removeValue(forKey: number)
-//        }
-//    case .theNumberIsRepeatedLessThanNTimes:
-//        if repeating < N {
-//            dictionaryOfNum.removeValue(forKey: number)
-//        }
-//    }
-//}
-//print(dictionaryOfNum)
-//return sortedByStatement
+print(removeNumbersCountingN(in: arrayToSort, statement: .theNumberIsRepeatedNTimes, N: 2))
+print(removeNumbersCountingN(in: arrayToSort, statement: .theNumberIsRepeatedMoreThanNTimes, N: 2))
+print(removeNumbersCountingN(in: arrayToSort, statement: .theNumberIsRepeatedLessThanNTimes, N: 2))
