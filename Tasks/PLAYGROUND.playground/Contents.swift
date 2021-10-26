@@ -3,28 +3,20 @@ import UIKit
 //Написати функцію, яка обчислює останні 6 цифр факторіалу числа (якщо воно менше аніж шестизначне - то просто число, якщо більше - то лише останні цифри)
 //n! = (n)*(n-1)*(n-2)*….*2*1
 
-let number = 11
 func factorial(_ n: Int) -> Int {
-    if n == 0 {
-        return 1
+    guard n != 0 else { return 1 }
+    var exactlyFactorial = 1
+    for i in 1...n {
+        exactlyFactorial = (exactlyFactorial * i) % 1_000_000
     }
-    else {
-        return n * factorial(n-1)
-    }
+    return exactlyFactorial
 }
-print(factorial(number))
+print(factorial(24))
 
 
 //поиск факториала 1
-//var numberInFunc = 1
-//if n != 0 {
-//    numberInFunc = n * factorial(n - 1)
-//}
-
-//поиск факториала 2
-//if n == 0 {
-//    return 1
-//}
-//else {
-//    return n * factorial(n-1)
-//}
+func factorial1(_ n: Int) -> Int{
+    guard n != 0 else {return 1}
+    return n * factorial1(n - 1) % 1_000_000
+}
+print(factorial1(21))
