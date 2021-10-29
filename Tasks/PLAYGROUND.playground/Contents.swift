@@ -10,7 +10,7 @@ import UIKit
 //масив [2, 0, -1] має привести до зациклювання:  він з першої клітинки стрибає на дві вперед, потім на одну назад а потім має лишатись на середній клітинці бо вона вказує сама на себе
 var array = [2, 1, 1, 2, 100] //3 хода
 var array2 = [1, 1, 1, 10] //4 хода
-var array3 = [2, 100, -2, 1]
+var array3 = [2, 100, -3, 1]
 var array4 = [1, 2, 0, 2, 1, 1, 3, 0, 1, 1, 1] //7 ходов
 func countOfMovesToGoBeyondTheLimit(of inoutArray: [Int]) -> Int? {
     var index = inoutArray.startIndex
@@ -20,6 +20,9 @@ func countOfMovesToGoBeyondTheLimit(of inoutArray: [Int]) -> Int? {
         (index, value) = (index + inoutArray[index], inoutArray[index])
         if index > endIndex {
             return moves + 1
+        }
+        else if index < 0 {
+            return nil
         }
     }
     return nil
