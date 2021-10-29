@@ -18,11 +18,8 @@ func countOfMovesToGoBeyondTheLimit(of inoutArray: [Int]) -> Int? {
     let endIndex = inoutArray.endIndex - 1
     for moves in inoutArray.indices {
         (index, value) = (index + inoutArray[index], inoutArray[index])
-        if index > endIndex {
+        if index > endIndex || index < 0 {
             return moves + 1
-        }
-        else if index < 0 {
-            return nil
         }
     }
     return nil
