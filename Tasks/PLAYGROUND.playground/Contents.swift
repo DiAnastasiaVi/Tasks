@@ -4,20 +4,18 @@ import UIKit
 //Написати функцію
 //public func solution(_ K : Int, _ A : inout [Int]) -> Int
 //Яка б за даним цілим К та непорожнім масивом А повертала кількість К-комплементарних пар в масиві А.
-var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+var arrayToCheck = [1, 2, 3, 4, 6, 5, 5, 7, 8, 9, 10]
 public func solution(_ K : Int, _ A : inout [Int]) -> Int {
-    var P = 0
-    var B = 0
-    var N = A.count
-    
-//    for (firstIndex, firstElement) in A.enumerated() {
-//        for (secondIndex, secondElement) in A.enumerated() {
-//            if firstIndex != secondIndex && firstElement + secondElement == K {
-//
-//            }
-//        }
-//    }
-//    return [1: 0]
-    return K
+    var first = 0
+    var second = 0
+    var dictionaryOfPairs : [Int: Int] = [:]
+    for i in A {
+        first = i
+        second = K - first
+        if A.contains(second) && first >= 0 && second < A.count && A.firstIndex(of: first) != A.lastIndex(of: second) {
+            dictionaryOfPairs.updateValue(second, forKey: first)
+        }
+    }
+    return dictionaryOfPairs.keys.count
 }
-print(solution(10, &arr))
+print(solution(8, &arrayToCheck))
