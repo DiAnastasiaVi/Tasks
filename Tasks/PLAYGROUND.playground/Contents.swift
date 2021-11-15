@@ -1,22 +1,60 @@
 import UIKit
 
 //Розробити об’єкти “електроприлади”, до якого належать “принтер” та “сканер”. Обидва мають метод “увімкнути”, але принтер має метод “друкувати”, а сканер - “сканувати”. Створити об’єкт “МФУ” який суміщає властивості принтера та сканера
-struct Printer {
-    let powerSupply = "ON"
-    let itemFunction = "You can print whatever you want to."
+protocol IsDeviceReady {
+    var isDeviceOn : Bool { get set }
 }
-struct Scanner {
-    let powerSupply = "ON"
-    let itemFunction = "You can scan whatever you want to."
+protocol DeviceForPrinting: IsDeviceReady {
+    func toPrint(_: String)
 }
-class ElectricalAppliances {
-    var printer = Printer()
-    var scanner = Scanner()
+extension DeviceForPrinting {
+    func toPrint(_ text: String) {
+        if isDeviceOn {
+            print("'\(text)'")
+        }
+        else {
+            print("Turn ON your device to start. ")
+        }
+    }
 }
-
-struct New {
-    let powerSupply = ElectricalAppliances().printer.powerSupply
-    let itemFunction = ElectricalAppliances().printer.itemFunction + ElectricalAppliances().scanner.itemFunction
+protocol ScanningDevice: IsDeviceReady {
+    func toScan(_: String)
 }
-
-print(New())
+extension ScanningDevice {
+    func toScan(_ text: String) {
+        if isDeviceOn {
+            print(text.lowercased())
+        }
+        else {
+            print("Turn ON your device to start. ")
+        }
+    }
+}
+protocol MFUDevice: DeviceForPrinting, ScanningDevice {
+    func toCopy(_: String)
+}
+extension MFUDevice {
+    func toCopy(_ text: String) {
+        if isDeviceOn {
+            print("'\(text.lowercased())'")
+        }
+        else {
+            print("Turn ON your device to start. ")
+        }
+    }
+}
+struct Printer: DeviceForPrinting {
+    var isDeviceOn = true
+}
+struct Scanner: ScanningDevice {
+    var isDeviceOn = true
+}
+struct MFU: MFUDevice {
+    var isDeviceOn = true
+}
+let printer = Printer()
+let scanner = Scanner()
+let mfu = MFU()
+printer.toPrint("HELLO WORLD")
+scanner.toScan("HELLO WORLD")
+mfu.toCopy("HELLO WORLD")
