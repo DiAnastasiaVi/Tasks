@@ -36,7 +36,8 @@ protocol MFUDevice: DeviceForPrinting, ScanningDevice {
 extension MFUDevice {
     func toCopy(_ text: String) {
         if isDeviceOn {
-            print("'\(text.lowercased())'")
+            toScan(text)
+            toPrint(text)
         }
         else {
             print("Turn ON your device to start. ")
@@ -55,6 +56,7 @@ struct MFU: MFUDevice {
 let printer = Printer()
 let scanner = Scanner()
 let mfu = MFU()
-printer.toPrint("HELLO WORLD")
-scanner.toScan("HELLO WORLD")
+//printer.toPrint("HELLO WORLD")
+//scanner.toScan("HELLO WORLD")
 mfu.toCopy("HELLO WORLD")
+mfu.toScan("HI")
