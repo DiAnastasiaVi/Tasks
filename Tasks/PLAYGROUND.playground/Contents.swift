@@ -5,17 +5,16 @@ let myNumbers1 = [88, 92, 44, 4, 23, 9, 17, 3]
 let myNumbers2 = [6]
 let myNumbers3 : [Int] = []
 
-enum ErrorFound: String, Error {
-    case arrayIsEmpty = "ERROR: Array Is Empty. "
-    case arrayContainsLessThan2Elements = "ERROR: Array Contains Less Than 2 Elements. "
+enum ErrorFound: Error {
+    case arrayIsEmpty
+    case arrayContainsLessThan2Elements(String)
 }
-
-func findingError<T: Numeric & Comparable>(in inoutArray: [T]) -> String {
+func findingError<T: Numeric & Comparable>(in inoutArray: [T]) throws -> String {
     guard !inoutArray.isEmpty else {
-        return ErrorFound.arrayIsEmpty.rawValue
+        throw ErrorFound.arrayIsEmpty
     }
     guard inoutArray.count >= 2 else {
-        return ErrorFound.arrayContainsLessThan2Elements.rawValue
+        throw ErrorFound.arrayContainsLessThan2Elements("\(inoutArray[0])")
     }
      var inoutArrayMin1 = min(inoutArray[0], inoutArray[1])
      var inoutArrayMin2 = max(inoutArray[1], inoutArray[0])
@@ -30,6 +29,9 @@ func findingError<T: Numeric & Comparable>(in inoutArray: [T]) -> String {
     }
     return "\(inoutArrayMin1 + inoutArrayMin2)"
 }
-print(findingError(in: myNumbers1))
-print(findingError(in: myNumbers2))
-print(findingError(in: myNumbers3))
+[myNumbers1, myNumbers2, myNumbers3].forEach{
+    do {
+        print(try findingError(in: $0))
+    } catch {
+        print(error) }
+}
