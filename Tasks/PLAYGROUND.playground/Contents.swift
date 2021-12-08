@@ -39,8 +39,9 @@ extension CharacterArray {
 class Arr: CharacterArray {
     var characterArray: String = "\(Char1().character), \(Char2().character), \(Char3().character), \(Char4().character), \(Char5().character)"
 }
-let e = Char1()
+let e = Char5()
 e.printOut()
 
 let q = Arr()
+q.characterArray = "^"
 q.makeArray()
