@@ -36,6 +36,9 @@ extension FindDogAndItsHouse {
         else if dog == 0 {
             dogWithHouse = "Отчет: в доме не проживает ни одной собаки."
         }
+        else if house == 0 {
+            dogWithHouse = "Отчет: все собаки являются бездомными."
+        }
         else {
             dogWithHouse = "Отчет: в доме никто не проживает, собак, увы, нет."
         }
