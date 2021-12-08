@@ -30,14 +30,14 @@ extension FindDogAndItsHouse {
         let dog = Human().dog
         let human = House().human
         var dogWithHouse: String = ""
-        if human >= 1 {
-            dogWithHouse = "Отчёт: в \(house) дом(ах) проживает \(dog) собак(и)."
-        }
-        else if dog == 0 {
+        if dog == 0 {
             dogWithHouse = "Отчет: в доме не проживает ни одной собаки."
         }
         else if house == 0 {
             dogWithHouse = "Отчет: все собаки являются бездомными."
+        }
+        else if human >= 1 {
+            dogWithHouse = "Отчёт: в \(house) дом(ах) проживает \(dog) собак(и)."
         }
         else {
             dogWithHouse = "Отчет: в доме никто не проживает, собак, увы, нет."
