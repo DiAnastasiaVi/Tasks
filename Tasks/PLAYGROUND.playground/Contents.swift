@@ -33,14 +33,11 @@ extension FindDogAndItsHouse {
         if dog == 0 {
             dogWithHouse = "Отчет: в доме не проживает ни одной собаки."
         }
-        else if house == 0 {
+        else if house == 0 || human == 0 {
             dogWithHouse = "Отчет: все собаки являются бездомными."
         }
-        else if human >= 1 {
-            dogWithHouse = "Отчёт: в \(house) дом(ах) проживает \(dog) собак(и)."
-        }
         else {
-            dogWithHouse = "Отчет: в доме никто не проживает, собак, увы, нет."
+            dogWithHouse = "Отчёт: в \(house) дом(ах) проживает \(dog) собак(и)."
         }
         print(dogWithHouse)
     }
