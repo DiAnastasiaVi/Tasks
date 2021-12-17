@@ -2,49 +2,42 @@ import UIKit
 
 //Створити об’єкти “собака”, “мешканець” та “будинок”, створити взаємозв’язки між ними - тобто в будинку проживають мешканці, у кожного мешканця може бути своя собака (собаки). Це значить що кожна собака знає лише свого господаря, а кожен будинок знає лише свої мешканців, і кожен мешканець знає будинок де він проживає та собак які йому належать. Можуть існувати як бездомні люди з собаками так і одинокі собаки. Згенерувати вручну масив собак, жильців та будинків (можна за допомогою генераторів випадкових чисел), і задати яка з собак з яким мешканцем в якому будинку живе. Створити функцію яка буде обходити масив будинків і формувати звіт - які собаки в яких будинках мешкають.
 //protocol HouseProtocol {
-//    var human: Int { get }
-//}
-//protocol HumanProtocol {
-//    var house: Int { get }
-//    var dog: Int { get }
-//}
-//protocol DogProtocol {
-//    var human: Int { get }
+//    var house: [String] { get }
+//    var hasHuman: Bool { get }
+//    var human: Human { get }
 //}
 class House {
-    var human = Int.random(in: 0..<10)
-}
-class Human {
-    var house = Int.random(in: 0..<10)
-    var dog = Int.random(in: 0..<10)
-}
-class Dog {
-    var human = Int.random(in: 0..<10)
-}
-protocol FindDogAndItsHouse {
-    func dogAndHouse()
-}
-extension FindDogAndItsHouse {
-    func dogAndHouse() {
-        let house = Human().house
-        let dog = Human().dog
-        let human = House().human
-        var dogWithHouse: String = ""
-        if dog == 0 {
-            dogWithHouse = "Отчет: в доме не проживает ни одной собаки."
+    var human: Human? {
+        didSet {
+            oldValue?.house = nil
+            self.human?.house = self
         }
-        else if house == 0 || human == 0 {
-            dogWithHouse = "Отчет: все собаки являются бездомными."
-        }
-        else {
-            dogWithHouse = "Отчёт: в \(house) дом(ах) проживает \(dog) собак(и)."
-        }
-        print(dogWithHouse)
     }
 }
-class HouseDog: FindDogAndItsHouse {
-    var house: Int = Human().house
-    var dog: Int = Human().dog
+
+class Human {
+    var house: House?
+    var dog: Dog? {
+        didSet {
+            oldValue?.human = nil
+            self.dog?.human = self
+        }
+    }
+    var humanName: String
+    init (_ name: String) {
+        self.humanName = name
+    }
 }
-let a = HouseDog()
-a.dogAndHouse()
+class Dog {
+    var dogName: String
+    var human: Human?
+    init (_ name: String) {
+        self.dogName = name
+    }
+}
+var someHouse: House? = House()
+var vasya: Human? = Human("CHELOVEK")
+var sobaka: Dog? = Dog("SOBAKA")
+someHouse?.human = vasya
+vasya?.dog = sobaka
+print(someHouse?.human?.dog?.dogName)
