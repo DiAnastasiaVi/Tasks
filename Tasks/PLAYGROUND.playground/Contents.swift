@@ -28,20 +28,16 @@ struct Char5: CharacterFunc {
     var character: String = "%"
 }
 protocol CharacterArray {
-    var characterArray: String { get }
-    func makeArray()
-}
-extension CharacterArray {
-    func makeArray() {
-        print(Array(arrayLiteral: characterArray))
-    }
+    func makeArray(stringArray: [String])
 }
 class Arr: CharacterArray {
-    var characterArray: String = "\(Char1().character), \(Char2().character), \(Char3().character), \(Char4().character), \(Char5().character)"
+    func makeArray(stringArray: [String]) {
+        var arrayOfChar = [Character]()
+        for i in stringArray {
+            arrayOfChar += i
+        }
+        print(arrayOfChar)
+    }
 }
-let e = Char5()
-e.printOut()
-
-let q = Arr()
-q.characterArray = "^"
-q.makeArray()
+let a = Arr()
+a.makeArray(stringArray: [Char1().character, Char2().character, Char3().character, Char4().character, Char5().character])
