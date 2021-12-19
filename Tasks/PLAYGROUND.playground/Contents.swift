@@ -4,21 +4,21 @@ import UIKit
 class House {
     var houseName: String
     init (_ name: String) { self.houseName = name }
-    weak var human: Human?
+    var human: Human?
     deinit { print("Дома \(houseName) не существует.") }
 }
 
 class Human {
     var humanName: String
     init (_ name: String) { self.humanName = name }
-    unowned var house: House?
-    weak var dog: Dog?
+    weak var house: House?
+    var dog: Dog?
     deinit { print("Человек с именем \(humanName) не существует.") }
 }
 class Dog {
     var dogName: String
     init (_ name: String) { self.dogName = name }
-    unowned var human: Human?
+    weak var human: Human?
     deinit { print("Данной собаки не существует.") }
 }
 var someHouse: House? = House("Apartment41")
